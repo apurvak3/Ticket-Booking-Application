@@ -1,6 +1,5 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -15,7 +14,6 @@ public class User {
 
     private String name;
     @Id
-    @Column(unique = true)
     private String email;
     private String password;
     private String phoneNo;
