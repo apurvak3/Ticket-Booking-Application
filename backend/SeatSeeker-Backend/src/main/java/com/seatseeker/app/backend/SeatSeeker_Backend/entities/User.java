@@ -12,8 +12,9 @@ import java.util.List;
 @Table(name = "user_table")
 public class User {
 
-    private String name;
     @Id
+    private int id;
+    private String name;
     private String email;
     private String password;
     private String phoneNo;
