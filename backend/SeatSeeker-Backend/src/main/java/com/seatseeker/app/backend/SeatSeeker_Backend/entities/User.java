@@ -1,9 +1,6 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +11,8 @@ import java.util.List;
 public class User {
 
     @Id
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int userId;
     private String name;
     @Column(unique = true)
     private String email;

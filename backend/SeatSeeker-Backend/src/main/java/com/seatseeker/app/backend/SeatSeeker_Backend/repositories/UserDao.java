@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao extends JpaRepository<User, String> {
 
+    public User findUserByEmail(String email);
 
+    public void deleteByEmail(String email);
 }
