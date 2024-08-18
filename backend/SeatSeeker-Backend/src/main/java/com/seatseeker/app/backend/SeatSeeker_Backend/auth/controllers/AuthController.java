@@ -1,0 +1,49 @@
+package com.seatseeker.app.backend.SeatSeeker_Backend.auth.controllers;
+
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.*;
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.services.UserAuthService;
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.services.JwtUtilService;
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.services.RefreshTokenService;
+import com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequestMapping("/auth/user")
+public class AuthController {
+
+    private final UserAuthService UserAuthService;
+    private final RefreshTokenService refreshTokenService;
+    private final JwtUtilService jwtUtilService;
+
+    public AuthController(UserAuthService UserAuthService, RefreshTokenService refreshTokenService, JwtUtilService jwtUtilService) {
+        this.UserAuthService = UserAuthService;
+        this.refreshTokenService = refreshTokenService;
+        this.jwtUtilService = jwtUtilService;
+    }
+
+    @PostMapping("/signup")
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(UserAuthService.register(registerRequest));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> login(@RequestBody LogInRequest loginRequest) {
+        return ResponseEntity.ok(UserAuthService.login(loginRequest));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
+        RefreshToken refreshToken = refreshTokenService.verifyRefreshToken(request.getRefreshToken());
+        User user = refreshToken.getUser();
+        String accessToken = jwtUtilService.generateToken(user);
+        return ResponseEntity.ok(AuthResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken.getRefreshToken())
+                .build());
+    }
+}

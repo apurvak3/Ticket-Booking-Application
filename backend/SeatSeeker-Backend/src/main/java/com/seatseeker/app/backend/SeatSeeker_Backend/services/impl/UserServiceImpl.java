@@ -1,12 +1,14 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.services.impl;
 
 import com.seatseeker.app.backend.SeatSeeker_Backend.Dto.UserDto;
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.UserRole;
 import com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;
 import com.seatseeker.app.backend.SeatSeeker_Backend.repositories.UserRepo;
 import com.seatseeker.app.backend.SeatSeeker_Backend.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,12 +32,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto, Integer userId) {
         User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setPhoneNo(userDto.getPhoneNo());
-        user.setOrderId(userDto.getOrderId());
-        user.setRoles(userDto.getRoles());
+        User.builder()
+                .username(userDto.getUsername())
+                .email(userDto.getEmail())
+                .password(userDto.getPassword())
+                .phoneNo(user.getPhoneNo())
+                .orderId(user.getOrderId())
+//                .roles(UserRole.CUSTOMER)
+                .build();
         User userUpdated = this.userRepo.save(user);
         return this.modelMapper.map(userUpdated, UserDto.class);
     }
