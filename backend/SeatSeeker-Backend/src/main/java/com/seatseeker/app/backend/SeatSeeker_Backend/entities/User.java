@@ -1,6 +1,7 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.RefreshToken;
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,10 +9,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user_table")
@@ -36,17 +39,16 @@ public class User implements UserDetails {
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
     private String orderId;
-    //    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "role")
-//    private UserRole roles;
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private UserRole roles;
     @OneToOne(mappedBy = "user")
     private RefreshToken refreshToken;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(roles.name()));
     }
 
     @Override

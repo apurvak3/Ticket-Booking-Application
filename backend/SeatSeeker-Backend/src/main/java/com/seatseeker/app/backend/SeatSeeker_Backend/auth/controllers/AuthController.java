@@ -1,9 +1,9 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.auth.controllers;
 
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.*;
-import com.seatseeker.app.backend.SeatSeeker_Backend.auth.services.UserAuthService;
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.services.JwtUtilService;
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.services.RefreshTokenService;
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.services.UserAuthService;
 import com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/auth/user")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final UserAuthService UserAuthService;
@@ -26,9 +26,19 @@ public class AuthController {
         this.jwtUtilService = jwtUtilService;
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest) {
-        return ResponseEntity.ok(UserAuthService.register(registerRequest));
+    @PostMapping("/user/signup")
+    public ResponseEntity<AuthResponse> userRegister(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(UserAuthService.userRegister(registerRequest));
+    }
+
+    @PostMapping("/admin/signup")
+    public ResponseEntity<AuthResponse> adminRegister(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(UserAuthService.adminRegister(registerRequest));
+    }
+
+    @PostMapping("/superAdmin/signup")
+    public ResponseEntity<AuthResponse> superAdminRegister(@RequestBody RegisterRequest registerRequest) {
+        return ResponseEntity.ok(UserAuthService.superAdminRegister(registerRequest));
     }
 
     @PostMapping("/login")
