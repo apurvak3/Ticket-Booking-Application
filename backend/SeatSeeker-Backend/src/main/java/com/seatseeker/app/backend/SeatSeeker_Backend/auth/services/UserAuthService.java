@@ -3,6 +3,7 @@ package com.seatseeker.app.backend.SeatSeeker_Backend.auth.services;
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.AuthResponse;
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.LogInRequest;
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.RegisterRequest;
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.UserRole;
 import com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;
 import com.seatseeker.app.backend.SeatSeeker_Backend.repositories.UserRepo;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,12 +30,46 @@ public class UserAuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public AuthResponse register(RegisterRequest registerRequest) {
+    public AuthResponse userRegister(RegisterRequest registerRequest) {
         var user = User.builder()
                 .username(registerRequest.getUsername())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .phoneNo(registerRequest.getPhoneNo())
+                .roles(UserRole.CUSTOMER)
+                .build();
+        User savedUser = userRepo.save(user);
+        var accessToken = jwtUtilService.generateToken(savedUser);
+        var refreshToken = refreshTokenService.createRefreshToken(savedUser.getUsername());
+        return AuthResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken.getRefreshToken())
+                .build();
+    }
+    public AuthResponse adminRegister(RegisterRequest registerRequest) {
+        var user = User.builder()
+                .username(registerRequest.getUsername())
+                .email(registerRequest.getEmail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .phoneNo(registerRequest.getPhoneNo())
+                .roles(UserRole.ADMIN)
+                .build();
+        User savedUser = userRepo.save(user);
+        var accessToken = jwtUtilService.generateToken(savedUser);
+        var refreshToken = refreshTokenService.createRefreshToken(savedUser.getUsername());
+        return AuthResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken.getRefreshToken())
+                .build();
+    }
+
+    public AuthResponse superAdminRegister(RegisterRequest registerRequest) {
+        var user = User.builder()
+                .username(registerRequest.getUsername())
+                .email(registerRequest.getEmail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .phoneNo(registerRequest.getPhoneNo())
+                .roles(UserRole.SUPERADMIN)
                 .build();
         User savedUser = userRepo.save(user);
         var accessToken = jwtUtilService.generateToken(savedUser);

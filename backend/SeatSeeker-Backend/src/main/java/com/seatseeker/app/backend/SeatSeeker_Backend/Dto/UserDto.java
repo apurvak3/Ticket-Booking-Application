@@ -20,4 +20,5 @@ public class UserDto {
     private String phoneNo;
     private Date createdAt;
     private String orderId;
+    private UserRole roles;
 }

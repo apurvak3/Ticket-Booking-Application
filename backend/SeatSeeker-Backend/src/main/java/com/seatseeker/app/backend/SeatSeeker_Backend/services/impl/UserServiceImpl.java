@@ -22,12 +22,12 @@ public class UserServiceImpl implements UserService {
         this.modelMapper = modelMapper;
     }
 
-    @Override
-    public UserDto createUser(UserDto userDto) {
-        User user = this.modelMapper.map(userDto, User.class);
-        User userCreated = this.userRepo.save(user);
-        return this.modelMapper.map(userCreated, UserDto.class);
-    }
+//    @Override
+//    public UserDto createUser(UserDto userDto) {
+//        User user = this.modelMapper.map(userDto, User.class);
+//        User userCreated = this.userRepo.save(user);
+//        return this.modelMapper.map(userCreated, UserDto.class);
+//    }
 
     @Override
     public UserDto updateUser(UserDto userDto, Integer userId) {
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
                 .password(userDto.getPassword())
                 .phoneNo(user.getPhoneNo())
                 .orderId(user.getOrderId())
-//                .roles(UserRole.CUSTOMER)
+                .roles(UserRole.CUSTOMER)
                 .build();
         User userUpdated = this.userRepo.save(user);
         return this.modelMapper.map(userUpdated, UserDto.class);
