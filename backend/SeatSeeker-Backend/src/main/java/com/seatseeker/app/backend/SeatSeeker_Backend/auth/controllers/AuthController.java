@@ -8,12 +8,10 @@ import com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/auth")
 public class AuthController {
 
     private final UserAuthService UserAuthService;
@@ -26,7 +24,7 @@ public class AuthController {
         this.jwtUtilService = jwtUtilService;
     }
 
-    @PostMapping("/user/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<AuthResponse> userRegister(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(UserAuthService.userRegister(registerRequest));
     }
@@ -41,12 +39,12 @@ public class AuthController {
         return ResponseEntity.ok(UserAuthService.superAdminRegister(registerRequest));
     }
 
-    @PostMapping("/login")
+    @PostMapping("/auth/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LogInRequest loginRequest) {
         return ResponseEntity.ok(UserAuthService.login(loginRequest));
     }
 
-    @PostMapping("/refresh")
+    @PostMapping("/auth/refresh")
     public ResponseEntity<AuthResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
         RefreshToken refreshToken = refreshTokenService.verifyRefreshToken(request.getRefreshToken());
         User user = refreshToken.getUser();
