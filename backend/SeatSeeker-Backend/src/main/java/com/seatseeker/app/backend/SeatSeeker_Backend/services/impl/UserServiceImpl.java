@@ -22,13 +22,6 @@ public class UserServiceImpl implements UserService {
         this.modelMapper = modelMapper;
     }
 
-//    @Override
-//    public UserDto createUser(UserDto userDto) {
-//        User user = this.modelMapper.map(userDto, User.class);
-//        User userCreated = this.userRepo.save(user);
-//        return this.modelMapper.map(userCreated, UserDto.class);
-//    }
-
     @Override
     public UserDto updateUser(UserDto userDto, Integer userId) {
         User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
