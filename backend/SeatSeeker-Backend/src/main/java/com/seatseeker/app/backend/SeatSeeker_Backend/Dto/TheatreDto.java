@@ -5,9 +5,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TheaterDto {
+public class TheatreDto {
 
-    private Integer TheaterId;
+    private Integer theatreId;
     private String name;
     private String city;
     private double ticketPrice;

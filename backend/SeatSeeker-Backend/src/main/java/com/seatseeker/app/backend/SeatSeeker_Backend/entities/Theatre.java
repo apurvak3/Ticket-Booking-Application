@@ -5,18 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "theater_table")
+@Table(name = "theatre_table")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Theater {
+public class Theatre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer theaterId;
+    private Integer theatreId;
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
@@ -24,6 +26,13 @@ public class Theater {
     @Column(nullable = false)
     private double ticketPrice;
     @Column(nullable = false)
-    @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
+    @ManyToMany
+    @JoinTable(
+            name = "movie_theatre",
+            joinColumns = @JoinColumn(name = "theatre_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private Set<Movie> movies = new HashSet<>();
 }
