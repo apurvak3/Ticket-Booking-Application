@@ -18,4 +18,5 @@ public class MovieDto {
     private Duration duration;
     private Date startDate;
     private Date endDate;
+    private List<Integer> theatreIDs;
 }

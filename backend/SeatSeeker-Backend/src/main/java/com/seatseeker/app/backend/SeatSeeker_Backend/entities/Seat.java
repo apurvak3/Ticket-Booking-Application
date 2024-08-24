@@ -13,11 +13,10 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String row;
-    private int number;
+    private String seatNumber;
     private boolean isBooked;
 
     @ManyToOne
-    @JoinColumn(name = "theater_id", nullable = false)
-    private Theater theater;
+    @JoinColumn(name = "theatre_id", nullable = false)
+    private Theatre theatre;
 }
