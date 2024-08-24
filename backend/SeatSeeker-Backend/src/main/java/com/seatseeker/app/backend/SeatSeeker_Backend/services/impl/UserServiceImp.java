@@ -8,16 +8,15 @@ import com.seatseeker.app.backend.SeatSeeker_Backend.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImp implements UserService {
 
     private final UserRepo userRepo;
     private final ModelMapper modelMapper;
 
-    public UserServiceImpl(UserRepo userRepo, ModelMapper modelMapper) {
+    public UserServiceImp(UserRepo userRepo, ModelMapper modelMapper) {
         this.userRepo = userRepo;
         this.modelMapper = modelMapper;
     }
