@@ -6,6 +6,7 @@ import com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;
 import com.seatseeker.app.backend.SeatSeeker_Backend.repositories.UserRepo;
 import com.seatseeker.app.backend.SeatSeeker_Backend.services.UserService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,23 +16,23 @@ public class UserServiceImp implements UserService {
 
     private final UserRepo userRepo;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImp(UserRepo userRepo, ModelMapper modelMapper) {
+    public UserServiceImp(UserRepo userRepo, ModelMapper modelMapper, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public UserDto updateUser(UserDto userDto, Integer userId) {
         User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-        User.builder()
-                .username(userDto.getUsername())
-                .email(userDto.getEmail())
-                .password(userDto.getPassword())
-                .phoneNo(user.getPhoneNo())
-                .orderId(user.getOrderId())
-                .roles(UserRole.CUSTOMER)
-                .build();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setPhoneNo(user.getPhoneNo());
+        user.setOrderId(user.getOrderId());
+        user.setRoles(UserRole.CUSTOMER);
         User userUpdated = this.userRepo.save(user);
         return this.modelMapper.map(userUpdated, UserDto.class);
     }

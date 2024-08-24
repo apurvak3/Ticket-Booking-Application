@@ -18,12 +18,6 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
-//        UserDto user = this.userService.createUser(userDto);
-//        return new ResponseEntity<>(user, HttpStatus.CREATED);
-//    }
-
     @PutMapping("/update/{userId}")
     public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable Integer userId) {
         UserDto user = this.userService.updateUser(userDto, userId);
