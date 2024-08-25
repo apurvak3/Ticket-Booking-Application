@@ -22,7 +22,7 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer MovieId;
+    private Integer movieId;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
