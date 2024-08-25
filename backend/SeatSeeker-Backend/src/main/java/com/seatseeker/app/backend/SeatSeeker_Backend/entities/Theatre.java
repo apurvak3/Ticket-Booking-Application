@@ -29,10 +29,9 @@ public class Theatre {
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Seat> seats;
     @ManyToMany
-    @JoinTable(
-            name = "movie_theatre",
-            joinColumns = @JoinColumn(name = "theatre_id"),
-            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    @JoinTable(name = "movie_theatre",
+    joinColumns = @JoinColumn(name = "theatre_id"),
+            inverseJoinColumns = @JoinColumn(name = "moive_id")
     )
     private Set<Movie> movies = new HashSet<>();
 }
