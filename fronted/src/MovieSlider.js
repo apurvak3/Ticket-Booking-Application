@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 const movies = [
     { id: 1, title: 'Vedaa', image: 'https://cdn.123telugu.com/content/wp-content/uploads/2024/08/vedaa-m.jpg'},
     { id: 2, title: 'Khel Khel Mein', image: 'https://cinenil.com/wp-content/uploads/2024/07/Khel-Khel-Mein.webp' },
-    { id: 3, title: 'Stree 2', image: 'https://images.hindustantimes.com/img/2024/08/15/550x309/stree_2_review_shraddha_kapoor_rajkummar_rao_1723692734817_1723692735009.jpg' },
+    { id: 3, title: 'Stree 2', image: 'https://images.hindustantimes.com/img/2024/08/15/550x309/stree_2_review_shraddha_kapoor_rajkummar_rao_1723692734817_1723692735009.jpg'},
+    {id: 4, title: 'Alein: Romulus', image: 'https://www.nwpb.org/wp-content/uploads/2024/08/wiziwiz-alien-romulus-poster-.webp'},
   ];
 
 function MovieSlider() {
