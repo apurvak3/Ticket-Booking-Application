@@ -1,0 +1,43 @@
+Index: backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/impl/UserServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.seatseeker.app.backend.SeatSeeker_Backend.services.impl;\r\n\r\nimport com.seatseeker.app.backend.SeatSeeker_Backend.Dto.UserDto;\r\nimport com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.UserRole;\r\nimport com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;\r\nimport com.seatseeker.app.backend.SeatSeeker_Backend.repositories.UserRepo;\r\nimport com.seatseeker.app.backend.SeatSeeker_Backend.services.UserService;\r\nimport org.modelmapper.ModelMapper;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\n@Service\r\npublic class UserServiceImpl implements UserService {\r\n\r\n    private final UserRepo userRepo;\r\n    private final ModelMapper modelMapper;\r\n\r\n    public UserServiceImpl(UserRepo userRepo, ModelMapper modelMapper) {\r\n        this.userRepo = userRepo;\r\n        this.modelMapper = modelMapper;\r\n    }\r\n\r\n    @Override\r\n    public UserDto updateUser(UserDto userDto, Integer userId) {\r\n        User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException(\"User not found with id: \" + userId));\r\n        User.builder()\r\n                .username(userDto.getUsername())\r\n                .email(userDto.getEmail())\r\n                .password(userDto.getPassword())\r\n                .phoneNo(user.getPhoneNo())\r\n                .orderId(user.getOrderId())\r\n                .roles(UserRole.CUSTOMER)\r\n                .build();\r\n        User userUpdated = this.userRepo.save(user);\r\n        return this.modelMapper.map(userUpdated, UserDto.class);\r\n    }\r\n\r\n    @Override\r\n    public void deleteUser(Integer userId) {\r\n        User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException(\"User not found with id: \" + userId));\r\n        this.userRepo.delete(user);\r\n    }\r\n\r\n    @Override\r\n    public UserDto getUserById(Integer userId) {\r\n        User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException(\"User not found with id: \" + userId));\r\n        return this.modelMapper.map(user, UserDto.class);\r\n    }\r\n\r\n    @Override\r\n    public List<UserDto> getAllUsers() {\r\n        List<User> users = this.userRepo.findAll();\r\n        return users.stream().map(user -> this.modelMapper.map(user, UserDto.class)).toList();\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/impl/UserServiceImpl.java b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/impl/UserServiceImpl.java
+--- a/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/impl/UserServiceImpl.java	
++++ b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/impl/UserServiceImpl.java	
+@@ -1,14 +1,12 @@
+ package com.seatseeker.app.backend.SeatSeeker_Backend.services.impl;
+ 
+ import com.seatseeker.app.backend.SeatSeeker_Backend.Dto.UserDto;
+-import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.UserRole;
+ import com.seatseeker.app.backend.SeatSeeker_Backend.entities.User;
+ import com.seatseeker.app.backend.SeatSeeker_Backend.repositories.UserRepo;
+ import com.seatseeker.app.backend.SeatSeeker_Backend.services.UserService;
+ import org.modelmapper.ModelMapper;
+ import org.springframework.stereotype.Service;
+ 
+-import java.util.Date;
+ import java.util.List;
+ 
+ @Service
+@@ -25,14 +23,11 @@
+     @Override
+     public UserDto updateUser(UserDto userDto, Integer userId) {
+         User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+-        User.builder()
+-                .username(userDto.getUsername())
+-                .email(userDto.getEmail())
+-                .password(userDto.getPassword())
+-                .phoneNo(user.getPhoneNo())
+-                .orderId(user.getOrderId())
+-                .roles(UserRole.CUSTOMER)
+-                .build();
++        user.setUsername(userDto.getUsername());
++        user.setEmail(userDto.getEmail());
++        user.setPassword(userDto.getPassword());
++        user.setPhoneNo(user.getPhoneNo());
++        user.setOrderId(user.getOrderId());
+         User userUpdated = this.userRepo.save(user);
+         return this.modelMapper.map(userUpdated, UserDto.class);
+     }

@@ -1,0 +1,97 @@
+Index: backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/ShowTimeService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/ShowTimeService.java b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/ShowTimeService.java
+new file mode 100644
+--- /dev/null	
++++ b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/services/ShowTimeService.java	
+@@ -0,0 +1,10 @@
++package com.seatseeker.app.backend.SeatSeeker_Backend.services;
++
++import com.seatseeker.app.backend.SeatSeeker_Backend.Dto.ShowTimeDto;
++
++public interface ShowTimeService {
++
++    ShowTimeDto addShowTime(ShowTimeDto showTimeDto);
++    ShowTimeDto updateShowTime(ShowTimeDto showTimeDto, Integer showTimeId);
++    void deleteShowTime(Integer showTimeId);
++}
+Index: backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/Dto/ShowTimeDto.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/Dto/ShowTimeDto.java b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/Dto/ShowTimeDto.java
+new file mode 100644
+--- /dev/null	
++++ b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/Dto/ShowTimeDto.java	
+@@ -0,0 +1,15 @@
++package com.seatseeker.app.backend.SeatSeeker_Backend.Dto;
++
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++@Data
++@NoArgsConstructor
++@AllArgsConstructor
++public class ShowTimeDto {
++    private Integer id;
++    private Long ticketPrice;
++    private String startDate;
++    private String endDate;
++}
+Index: backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/entities/ShowTime.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/entities/ShowTime.java b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/entities/ShowTime.java
+new file mode 100644
+--- /dev/null	
++++ b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/entities/ShowTime.java	
+@@ -0,0 +1,25 @@
++package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
++
++import jakarta.persistence.Column;
++import jakarta.persistence.GeneratedValue;
++import jakarta.persistence.GenerationType;
++import jakarta.persistence.Id;
++import lombok.AllArgsConstructor;
++import lombok.Data;
++import lombok.NoArgsConstructor;
++
++@Data
++@NoArgsConstructor
++@AllArgsConstructor
++public class ShowTime {
++
++    @Id
++    @GeneratedValue(strategy = GenerationType.IDENTITY)
++    private Integer id;
++    @Column(name = "ticket_price", nullable = false)
++    private Long ticketPrice;
++    @Column(name = "start_date", nullable = false)
++    private String startDate;
++    @Column(name = "end_date", nullable = false)
++    private String endDate;
++}
+Index: backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/repositories/ShowTimeRepo.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/repositories/ShowTimeRepo.java b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/repositories/ShowTimeRepo.java
+new file mode 100644
+--- /dev/null	
++++ b/backend/SeatSeeker-Backend/src/main/java/com/seatseeker/app/backend/SeatSeeker_Backend/repositories/ShowTimeRepo.java	
+@@ -0,0 +1,7 @@
++package com.seatseeker.app.backend.SeatSeeker_Backend.repositories;
++
++import com.seatseeker.app.backend.SeatSeeker_Backend.entities.ShowTime;
++import org.springframework.data.jpa.repository.JpaRepository;
++
++public interface ShowTimeRepo extends JpaRepository<ShowTime, Integer> {
++}
