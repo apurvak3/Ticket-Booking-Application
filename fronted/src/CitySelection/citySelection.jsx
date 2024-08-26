@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Search, MapPin } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@shadcn/ui';
+import { Input } from '@shadcn/ui';
+import { Button } from '@shadcn/ui';;
 
 const popularCities = [
   { name: 'Mumbai', icon: '🏙️' },
