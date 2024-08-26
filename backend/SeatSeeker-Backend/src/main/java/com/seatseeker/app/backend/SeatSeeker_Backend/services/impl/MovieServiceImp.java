@@ -36,7 +36,9 @@ public class MovieServiceImp implements MovieService {
         HashSet<Theatre> theatres = new HashSet<>(theatreRepo.findAllById(movieDto.getTheatreIDs()));
         movie.setTheatres(theatres);
         Movie savedMovie = movieRepo.save(movie);
-        return modelMapper.map(savedMovie, MovieDto.class);
+        MovieDto response = modelMapper.map(savedMovie, MovieDto.class);
+        response.setTheatreIDs(movieDto.getTheatreIDs());
+        return response;
     }
 
     @Override
