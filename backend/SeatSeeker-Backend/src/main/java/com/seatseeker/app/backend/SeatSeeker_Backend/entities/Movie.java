@@ -39,7 +39,11 @@ public class Movie {
     private Date startDate;
     @Column(nullable = false)
     private Date endDate;
-    @ManyToMany(mappedBy = "movies")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "movie_theatre",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "theatre_id")
+    )
     private Set<Theatre> theatres = new HashSet<>();
 
 }
