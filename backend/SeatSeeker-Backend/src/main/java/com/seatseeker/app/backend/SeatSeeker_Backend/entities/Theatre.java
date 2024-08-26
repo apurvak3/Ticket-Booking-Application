@@ -1,5 +1,7 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class Theatre {
     private double ticketPrice;
     @Column(nullable = false)
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Seat> seats;
     @ManyToMany(mappedBy = "theatres")
     private Set<Movie> movies = new HashSet<>();

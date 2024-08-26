@@ -1,5 +1,6 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,5 +19,6 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "theatre_id", nullable = false)
+    @JsonBackReference
     private Theatre theatre;
 }

@@ -8,4 +8,6 @@ public class SeatDto {
     Integer seatId;
     String seatNumber;
     boolean isBooked;
+
+    TheatreDto theatreDto;
 }
