@@ -22,7 +22,7 @@ public class RefreshTokenService {
     }
 
     public RefreshToken createRefreshToken(String username) {
-        User user = this.userRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User not found with this username"));
+        User user = this.userRepo.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found with this username"));
         RefreshToken refreshToken = user.getRefreshToken();
         if (refreshToken == null) {
             long refreshTokenValidity = 60 * 60 * 1000;
