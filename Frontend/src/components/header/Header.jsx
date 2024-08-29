@@ -17,7 +17,7 @@ function Header() {
         <div className="grid grid-cols-4 absolute bottom-0">
           <Card
             shadow={false}
-            className="movie-box-1 ms-7 relative grid h-[27rem] w-full max-w-[18rem] items-end justify-center overflow-hidden text-center"
+            className="movie-box-1 ms-7 relative grid h-[22rem] w-full max-w-[14rem] items-end justify-center overflow-hidden text-center"
           >
             <CardHeader
               floated={false}
@@ -42,7 +42,7 @@ function Header() {
           </Card>
           <Card
             shadow={false}
-            className="movie-box-2 ms-7 relative grid h-[27rem] w-full max-w-[18rem] items-end justify-center overflow-hidden text-center"
+            className="movie-box-2 ms-7 relative grid h-[22rem] w-full max-w-[14rem] items-end justify-center overflow-hidden text-center"
           >
             <CardHeader
               floated={false}
@@ -67,7 +67,7 @@ function Header() {
           </Card>
           <Card
             shadow={false}
-            className="movie-box-3 ms-7 relative grid h-[27rem] w-full max-w-[18rem] items-end justify-center overflow-hidden text-center"
+            className="movie-box-3 ms-7 relative grid h-[22rem] w-full max-w-[14rem] items-end justify-center overflow-hidden text-center"
           >
             <CardHeader
               floated={false}
@@ -92,7 +92,7 @@ function Header() {
           </Card>
           <Card
             shadow={false}
-            className="movie-box-4 ms-7 relative grid h-[27rem] w-full max-w-[18rem] items-end justify-center overflow-hidden text-center"
+            className="movie-box-4 ms-7 relative grid h-[22rem] w-full max-w-[14rem] items-end justify-center overflow-hidden text-center"
           >
             <CardHeader
               floated={false}
