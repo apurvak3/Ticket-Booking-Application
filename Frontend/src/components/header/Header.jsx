@@ -23,24 +23,29 @@ const movies = [
     title: "Beauty And The Beast",
     year: "2015",
     image: "https://m.media-amazon.com/images/M/MV5BNmE1Yjk0NzMtOWM3NC00YTgzLWJlMDItMjJlMGM4ZGE3NjJkXkEyXkFqcGc@._V1_SX300.jpg",
+    bg_image: "https://m.media-amazon.com/images/M/MV5BNTE4NDIwMDQ4OF5BMl5BanBnXkFtZTgwMDcyMDg2MTI@._V1_.jpg",
   },
   {
-    title: "Beauty And The Beast",
-    year: "2010",
-    image: "https://m.media-amazon.com/images/M/MV5BMjI2MDQ0ODA2Ml5BMl5BanBnXkFtZTcwODU1MDY5NA@@._V1_SX300.jpg",
+    title: "RRR",
+    year: "2022",
+    image: "https://m.media-amazon.com/images/M/MV5BOGU1YWRlOTUtMmY3Yi00NzgzLWI3ZDYtM2M4YWQ1NWVmZjk5XkEyXkFqcGdeQXVyMTQ3Mzk2MDg4._V1_.jpg",
+    bg_image: "https://wallpaperaccess.com/full/5664306.jpg"
   },
 ];
 
 function Header() {
-  const [backgroundImage, setBackgroundImage] = useState("hero.jpg");
+  const [backgroundImage, setBackgroundImage] = useState("https://wallpaperaccess.com/full/1679629.jpg");
   const [showAll, setShowAll] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseEnter = (image) => {
-    setBackgroundImage(image);
+  const handleMouseEnter = (bg_image) => {
+    setBackgroundImage(bg_image);
+    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
-    setBackgroundImage("");
+    setIsHovered(false);
+    setBackgroundImage("https://wallpaperaccess.com/full/1679629.jpg");
   };
 
   const visibleMovies = showAll ? movies : movies.slice(0, 4); // Adjust the logic for showing more or less movies
@@ -50,7 +55,7 @@ function Header() {
       <header
         className="hero relative"
         style={{
-          backgroundImage: backgroundImage ? `url(${backgroundImage})` : "hero.jpg",
+          backgroundImage: backgroundImage ? `url(${backgroundImage})` : "https://wallpaperaccess.com/full/1679629.jpg",
           backgroundSize: "cover",
           backgroundPosition: "center",
           transition: "background-image 0.3s ease-in-out",
@@ -69,8 +74,8 @@ function Header() {
             <Card
               key={index}
               shadow={false}
-              className="ms-5 relative grid h-[10rem] w-full max-w-[14rem] items-end justify-center overflow-hidden text-center"
-              onMouseEnter={() => handleMouseEnter(movie.image)}
+              className={`ms-5 relative grid h-[${isHovered ? "25rem" : "15rem"}] w-full max-w-[14rem] items-end justify-center overflow-hidden text-center`}
+              onMouseEnter={() => handleMouseEnter(movie.bg_image)}
               onMouseLeave={handleMouseLeave}
             >
               <CardHeader

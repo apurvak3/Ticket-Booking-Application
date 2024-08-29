@@ -71,7 +71,7 @@ const MovieCard = ({ movie }) => {
 
   return (
     <div 
-      className={`relative rounded overflow-hidden shadow-lg cursor-pointer transition-all duration-300 ease-in-out ${isHovered ? 'scale-110 z-10' : ''}`}
+      className={`relative rounded-lg overflow-hidden shadow-lg cursor-pointer transition-all duration-300 ease-in-out ${isHovered ? 'scale-110 z-10' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
