@@ -38,66 +38,68 @@ function Header() {
   const [showAll, setShowAll] = useState(false);
 
   const handleMouseEnter = (bg_image) => {
-    setBackgroundImage(bg_image);
+    setBackgroundImage(bg_image || "https://wallpaperaccess.com/full/1679629.jpg");
   };
 
   const handleMouseLeave = () => {
     setBackgroundImage("https://wallpaperaccess.com/full/1679629.jpg");
   };
 
-  const visibleMovies = showAll ? movies : movies.slice(0, 4); // Adjust the logic for showing more or less movies
+  const visibleMovies = showAll ? movies : movies.slice(0, 4);
 
   return (
     <>
       <header
-        className="hero relative"
+        className="hero relative h-screen"
         style={{
-          backgroundImage: backgroundImage ? `url(${backgroundImage})` : "https://wallpaperaccess.com/full/1679629.jpg",
+          backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           transition: "background-image 0.3s ease-in-out",
         }}
       >
+        <Navbar />
         <button
           onClick={() => setShowAll(!showAll)}
-          className="text-blue-500 hover:text-blue-700 transition-colors duration-300 absolute down-10 right-5"
+          className="text-blue-500 hover:text-blue-700 transition-colors duration-300 absolute bottom-4 right-4 z-20"
         >
           {showAll ? "See Less" : "See More"}
         </button>
-
-        <Navbar />
-        <div className="grid grid-cols-4 absolute bottom-0 gap-4 p-4">
-          {visibleMovies.map((movie, index) => (
-            <Card
-              key={index}
-              shadow={false}
-              className="ms-5 relative grid h-[15rem] w-full max-w-[12rem] items-end justify-center overflow-hidden text-center hover:h-[25rem] hover:w-[20rem] hover:z-10"
-              onMouseEnter={() => handleMouseEnter(movie.bg_image)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <CardHeader
-                floated={false}
-                shadow={false}
-                color="transparent"
-                className="absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center"
-                style={{ backgroundImage: `url(${movie.image})` }}
-              >
-                <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
-              </CardHeader>
-              <CardBody className="relative py-14 px-6 md:px-12">
-                <Typography
-                  variant="h2"
-                  color="white"
-                  className="mb-6 font-medium leading-[1.5]"
+        <div className="absolute bottom-0 left-0 right-0 overflow-x-auto whitespace-nowrap pb-4">
+          <div className="inline-flex space-x-4 px-4">
+            {visibleMovies.map((movie, index) => (
+              <div key={index} className="relative w-[12rem] h-[15rem]">
+                <Card
+                  shadow={false}
+                  className="w-full h-full transition-all duration-300 ease-in-out transform hover:w-[20rem] hover:h-[25rem] hover:-translate-y-1/2 hover:z-10"
+                  onMouseEnter={() => handleMouseEnter(movie.bg_image)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {movie.title}
-                </Typography>
-                <Typography variant="h5" className="mb-4 text-gray-400">
-                  {movie.year}
-                </Typography>
-              </CardBody>
-            </Card>
-          ))}
+                  <CardHeader
+                    floated={false}
+                    shadow={false}
+                    color="transparent"
+                    className="absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center"
+                    style={{ backgroundImage: `url(${movie.image})` }}
+                  >
+                    <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
+                  </CardHeader>
+                  <CardBody className="relative flex flex-col justify-end h-full py-4 px-6">
+                    <Typography
+                      variant="h2"
+                      color="white"
+                      className="mb-2 font-medium leading-[1.5] text-sm"
+                    >
+                      {movie.title}
+                    </Typography>
+                    <Typography variant="h5" className="text-gray-400 text-xs">
+                      {movie.year}
+                    </Typography>
+                  </CardBody>
+                </Card>
+              </div>
+            ))}
+          </div>
         </div>
       </header>
     </>
