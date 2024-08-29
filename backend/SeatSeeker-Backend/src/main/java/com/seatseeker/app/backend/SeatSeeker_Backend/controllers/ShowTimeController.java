@@ -18,9 +18,9 @@ public class ShowTimeController {
         this.showTimeService = showTimeService;
     }
 
-    @PostMapping("/add-showtime")
-    public ResponseEntity<ShowTimeDto> addShowTime(@RequestBody ShowTimeDto showTimeDto) {
-        ShowTimeDto showTime = this.showTimeService.addShowTime(showTimeDto);
+    @PostMapping("/add-showtime/movieid/{movieId}")
+    public ResponseEntity<ShowTimeDto> addShowTime(@RequestBody ShowTimeDto showTimeDto, @PathVariable Integer movieId) {
+        ShowTimeDto showTime = this.showTimeService.addShowTime(showTimeDto, movieId);
         return new ResponseEntity<>(showTime, HttpStatus.CREATED);
     }
 

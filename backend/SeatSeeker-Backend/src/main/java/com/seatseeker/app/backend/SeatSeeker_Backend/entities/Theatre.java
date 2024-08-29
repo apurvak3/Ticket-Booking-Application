@@ -31,6 +31,6 @@ public class Theatre {
     @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Seat> seats;
-    @ManyToMany(mappedBy = "theatres")
+    @ManyToMany(mappedBy = "theatres", fetch = FetchType.EAGER)
     private Set<Movie> movies = new HashSet<>();
 }

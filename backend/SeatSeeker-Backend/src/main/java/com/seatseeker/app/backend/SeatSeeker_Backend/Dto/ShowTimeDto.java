@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class ShowTimeDto {
     private Integer id;
     private Long ticketPrice;
-    private String startDate;
-    private String endDate;
+    private String startTime;
+    private String endTime;
 }

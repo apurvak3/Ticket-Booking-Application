@@ -39,11 +39,13 @@ public class Movie {
     private Date startDate;
     @Column(nullable = false)
     private Date endDate;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     @JoinTable(name = "movie_theatre",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "theatre_id")
     )
     private Set<Theatre> theatres = new HashSet<>();
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ShowTime> showTimes;
 
 }

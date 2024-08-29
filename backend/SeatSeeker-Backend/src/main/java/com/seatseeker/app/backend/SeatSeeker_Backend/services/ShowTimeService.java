@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ShowTimeService {
 
-    ShowTimeDto addShowTime(ShowTimeDto showTimeDto);
+    ShowTimeDto addShowTime(ShowTimeDto showTimeDto, Integer movieId);
     ShowTimeDto updateShowTime(ShowTimeDto showTimeDto, Integer showTimeId);
     void deleteShowTime(Integer showTimeId);
     List<ShowTimeDto> getAllShowTime();
