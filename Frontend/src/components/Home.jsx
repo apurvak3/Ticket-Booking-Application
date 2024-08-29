@@ -1,12 +1,15 @@
 import React from "react";
 import Header from "./header/Header";
-import Slider from "./carousel/Slider";
+import CurrentPlaying from "./movies/currentPlaying";
+import ComingSoon from "./movies/ComingSoon";
 
 function Home() {
   return (
     <>
       <Header />
-      <Slider />
+      <CurrentPlaying/>
+      <ComingSoon/>
+      
     </>
   );
 }
