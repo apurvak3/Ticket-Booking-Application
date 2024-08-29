@@ -1,5 +1,6 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
+import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.ForgotPassword;
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.RefreshToken;
 import com.seatseeker.app.backend.SeatSeeker_Backend.auth.models.UserRole;
 import jakarta.persistence.*;
@@ -45,7 +46,8 @@ public class User implements UserDetails {
     private UserRole roles;
     @OneToOne(mappedBy = "user")
     private RefreshToken refreshToken;
-
+    @OneToOne(mappedBy = "user")
+    private ForgotPassword forgotPassword;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(roles.name()));
