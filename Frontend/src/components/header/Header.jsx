@@ -36,15 +36,12 @@ const movies = [
 function Header() {
   const [backgroundImage, setBackgroundImage] = useState("https://wallpaperaccess.com/full/1679629.jpg");
   const [showAll, setShowAll] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = (bg_image) => {
     setBackgroundImage(bg_image);
-    setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
     setBackgroundImage("https://wallpaperaccess.com/full/1679629.jpg");
   };
 
@@ -74,7 +71,7 @@ function Header() {
             <Card
               key={index}
               shadow={false}
-              className={`ms-5 relative grid h-[${isHovered ? "25rem" : "15rem"}] w-full max-w-[14rem] items-end justify-center overflow-hidden text-center`}
+              className="ms-5 relative grid h-[15rem] w-full max-w-[12rem] items-end justify-center overflow-hidden text-center hover:h-[25rem] hover:w-[20rem] hover:z-10"
               onMouseEnter={() => handleMouseEnter(movie.bg_image)}
               onMouseLeave={handleMouseLeave}
             >
