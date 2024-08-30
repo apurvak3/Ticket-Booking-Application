@@ -6,41 +6,39 @@ import {
   CardHeader,
   CardBody,
   Typography,
+  Button,
 } from "@material-tailwind/react";
 
 const movies = [
   {
-    title: "RRR",
+    title: "Dark Knight",
     year: "2022",
-    image:
-      "https://m.media-amazon.com/images/M/MV5BOGU1YWRlOTUtMmY3Yi00NzgzLWI3ZDYtM2M4YWQ1NWVmZjk5XkEyXkFqcGdeQXVyMTQ3Mzk2MDg4._V1_.jpg",
-    bg_image: "https://wallpaperaccess.com/full/5664306.jpg",
+    image: "./Darkknight1.jpg",
+    bg_image: "./TheDarkKnight.jpg",
   },
   {
-    title: "Beauty And The Beast",
+    title: "Iron Man",
     year: "2014",
-    image:
-      "https://m.media-amazon.com/images/M/MV5BMTUwNjUxMTM4NV5BMl5BanBnXkFtZTgwODExMDQzMTI@._V1_SX300.jpg",
+    image: "./Ironman1.jpg",
+    bg_image: "./Ironman2.jpg",
   },
   {
-    title: "Beauty And The Beast",
+    title: "Joker",
     year: "2017",
-    image:
-      "https://m.media-amazon.com/images/M/MV5BMTQxNjI2NjU4MV5BMl5BanBnXkFtZTcwNjQ2NjUwNw@@._V1_SX300.jpg",
+    image: "./Joker1.jpg",
+    bg_image: "./joker2.jpg",
   },
   {
-    title: "Beauty And The Beast",
+    title: "Strangers Things",
     year: "2015",
-    image:
-      "https://m.media-amazon.com/images/M/MV5BNmE1Yjk0NzMtOWM3NC00YTgzLWJlMDItMjJlMGM4ZGE3NjJkXkEyXkFqcGc@._V1_SX300.jpg",
+    image: "./Strangers.jpg",
     bg_image:
       "https://m.media-amazon.com/images/M/MV5BNTE4NDIwMDQ4OF5BMl5BanBnXkFtZTgwMDcyMDg2MTI@._V1_.jpg",
   },
   {
-    title: "RRR",
+    title: "The Conjuring",
     year: "2022",
-    image:
-      "https://m.media-amazon.com/images/M/MV5BOGU1YWRlOTUtMmY3Yi00NzgzLWI3ZDYtM2M4YWQ1NWVmZjk5XkEyXkFqcGdeQXVyMTQ3Mzk2MDg4._V1_.jpg",
+    image: "Conjuring.jpg",
     bg_image: "https://wallpaperaccess.com/full/5664306.jpg",
   },
 ];
@@ -59,6 +57,10 @@ function Header() {
 
   const handleMouseLeave = () => {
     setBackgroundImage("https://wallpaperaccess.com/full/1679629.jpg");
+  };
+
+  const handleWatchNow = () => {
+    window.location.href = 'http://localhost:5173/SeatBooking';
   };
 
   const visibleMovies = showAll ? movies : movies.slice(0, 5);
@@ -111,6 +113,14 @@ function Header() {
                     <Typography variant="h5" className="text-gray-400 text-xs">
                       {movie.year}
                     </Typography>
+                    <Button
+                      size="sm"
+                      color="blue"
+                      className="mt-2"
+                      onClick={handleWatchNow}
+                    >
+                      Watch Now
+                    </Button>
                   </CardBody>
                 </Card>
               </div>

@@ -17,7 +17,7 @@ const LoginPage = () => {
       console.log('Sign in submitted', { email, password, rememberMe });
       
       // After successful sign in, navigate to SeatBooking page
-      navigate('/SeatBooking');
+      navigate('/');
     }
   };
 
