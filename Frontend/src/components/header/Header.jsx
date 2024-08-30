@@ -8,14 +8,13 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
-import CongratulationPopup from "../SeatBooking/CongratulationPopup";
 
 const movies = [
   {
     title: "Dark Knight",
     year: "2022",
     image: "./Darkknight1.jpg",
-    bg_image: "./TheDarkKnight.jpg",
+    bg_image: "./TheDarkKnight2.jpg",
   },
   {
     title: "Iron Man",
@@ -69,16 +68,17 @@ function Header() {
   return (
     <>
       <header
-        className="hero relative h-screen"
+        className="hero relative h-screen w-full overflow-hidden"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
           transition: "background-image 0.3s ease-in-out",
         }}
       >
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <Navbar />
-        <CongratulationPopup />
         <button
           onClick={() => setShowAll(!showAll)}
           className="text-blue-500 hover:text-blue-700 transition-colors duration-300 absolute bottom-4 right-4 z-20"
@@ -88,10 +88,10 @@ function Header() {
         <div className="absolute bottom-0 left-0 right-0 overflow-x-auto whitespace-nowrap pb-4">
           <div className="flex justify-evenly space-x-4 px-4">
             {visibleMovies.map((movie, index) => (
-              <div key={index} className="relative w-[12rem] h-[16rem]">
+              <div key={index} className="relative w-[12rem] h-[15rem]">
                 <Card
                   shadow={false}
-                  className="w-full h-full transition-all duration-300 ease-in-out transform hover:scale-110 hover:z-10"
+                  className="w-full h-full transition-all duration-300 ease-in-out transform hover:w-[14rem] hover:h-[16rem] hover:z-10"
                   onMouseEnter={() => handleMouseEnter(movie.bg_image)}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -100,7 +100,12 @@ function Header() {
                     shadow={false}
                     color="transparent"
                     className="absolute inset-0 m-0 h-full w-full rounded-none bg-cover bg-center"
-                    style={{ backgroundImage: `url(${movie.image})` }}
+                    style={{ 
+                      backgroundImage: `url(${movie.image})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat"
+                    }}
                   >
                     <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-t from-black/80 via-black/50" />
                   </CardHeader>
