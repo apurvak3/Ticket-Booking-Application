@@ -1,88 +1,72 @@
 import React, { useState } from 'react';
-import { LogIn } from 'lucide-react';
 
-// Login Modal Component
-const LoginModal = ({ isOpen, onClose, onLogin }) => {
-  const [username, setUsername] = useState('');
+const LoginPage = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(username);
-    onClose();
+    if (password.length < 4 || password.length > 60) {
+      setError('Your password must contain between 4 and 60 characters.');
+    } else {
+      // Handle sign in logic here
+      console.log('Sign in submitted', { email, password, rememberMe });
+    }
   };
 
-  if (!isOpen) return null;
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-gray-800 p-6 rounded-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4 flex items-center text-white">
-          <LogIn className="mr-2" /> Login
-        </h2>
-        <form onSubmit={handleLogin}>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 mb-4 bg-gray-700 rounded text-white"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 mb-4 bg-gray-700 rounded text-white"
-          />
-          <button type="submit" className="w-full bg-red-600 py-2 rounded font-semibold text-white">
-            LogIn
+    <div className="min-h-screen flex items-center justify-center bg-black bg-opacity-75">
+      <div className="bg-black bg-opacity-70 p-8 rounded-lg w-96">
+        <h1 className="text-white text-3xl font-bold mb-6">LogIn</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <input
+              type="text"
+              placeholder="Email or mobile number"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-3 rounded bg-gray-700 text-white"
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 rounded bg-gray-700 text-white"
+            />
+            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-red-600 text-white p-3 rounded font-bold"
+          >
+            Sign In
           </button>
         </form>
+        <div className="flex items-center justify-between mt-4">
+          <label className="flex items-center text-gray-400">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="mr-2"
+            />
+            Remember me
+          </label>
+          <a href="#" className="text-gray-400 hover:underline">Forgot password?</a>
+        </div>
+        
+        <p className="text-gray-400 mt-6">
+          New to Fox? <a href="#" className="text-white hover:underline">Sign up now</a>.
+        </p>
       </div>
     </div>
   );
 };
 
-// Main Page Component with Navbar and Login Button
-const LoginPage = () => {
-  const [user, setUser] = useState(null);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-
-  const handleLogin = (username) => {
-    setUser(username);
-    alert(`Welcome, ${username}!`);
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-gray-800 p-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          
-          <div>
-            {user ? (
-              <span className="text-white">Hello, {user}!</span>
-            ) : (
-              <button
-                onClick={() => setIsLoginModalOpen(true)}
-                className="bg-red-600 text-white px-4 py-2 rounded"
-              >
-                LogIn
-              </button>
-            )}
-          </div>
-        </div>
-      </nav>
-
-      {/* Render the login modal when isLoginModalOpen is true */}
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        onLogin={handleLogin}
-      />
-    </div>
-  );
-};
-
 export default LoginPage;
+
