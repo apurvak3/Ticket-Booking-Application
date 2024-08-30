@@ -1,15 +1,12 @@
 import "./App.css";
 import Home from "./components/Home";
-import SeatBooking from "./components/SeatBooking/SeatBooking";
-
+import CongratulationPopup from "./components/SeatBooking/CongratulationPopup";
 
 function App() {
   return (
     <>
       <Home />
-      <SeatBooking/>
-     
-
+      <CongratulationPopup />
     </>
   );
 }
