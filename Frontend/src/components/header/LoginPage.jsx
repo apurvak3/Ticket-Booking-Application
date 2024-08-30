@@ -61,7 +61,7 @@ const LoginPage = () => {
         </div>
         
         <p className="text-gray-400 mt-6">
-          New to Fox? <a href="#" className="text-white hover:underline">Sign up now</a>.
+          New to Fox? <a href="http://localhost:5173/signup" className="text-white hover:underline">Sign up now</a>.
         </p>
       </div>
     </div>
