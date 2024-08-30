@@ -7,6 +7,7 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
+import CongratulationPopup from "../SeatBooking/CongratulationPopup";
 
 const movies = [
   {
@@ -75,6 +76,7 @@ function Header() {
         }}
       >
         <Navbar />
+        <CongratulationPopup />
         <button
           onClick={() => setShowAll(!showAll)}
           className="text-blue-500 hover:text-blue-700 transition-colors duration-300 absolute bottom-4 right-4 z-20"
@@ -84,10 +86,10 @@ function Header() {
         <div className="absolute bottom-0 left-0 right-0 overflow-x-auto whitespace-nowrap pb-4">
           <div className="flex justify-evenly space-x-4 px-4">
             {visibleMovies.map((movie, index) => (
-              <div key={index} className="relative w-[12rem] h-[15rem]">
+              <div key={index} className="relative w-[12rem] h-[16rem]">
                 <Card
                   shadow={false}
-                  className="w-full h-full transition-all duration-300 ease-in-out transform hover:w-[14rem] hover:h-[16rem] hover:z-10"
+                  className="w-full h-full transition-all duration-300 ease-in-out transform hover:scale-110 hover:z-10"
                   onMouseEnter={() => handleMouseEnter(movie.bg_image)}
                   onMouseLeave={handleMouseLeave}
                 >
