@@ -4,11 +4,21 @@ import App from "./App.jsx";
 import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./components/header/LoginPage.jsx";
+import SeatBooking from "./components/SeatBooking/SeatBooking.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/seatbooking",
+    element: <SeatBooking />,
   },
 ]);
 

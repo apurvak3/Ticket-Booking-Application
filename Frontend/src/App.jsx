@@ -1,12 +1,12 @@
 import "./App.css";
 import Home from "./components/Home";
-import LoginPage from "./components/header/LoginPage";
+import SeatBooking from "./components/SeatBooking/SeatBooking";
 
 function App() {
   return (
     <>
       <Home />
-      <LoginPage/>
+      <SeatBooking />
     </>
   );
 }
