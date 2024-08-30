@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { Calendar, Clock } from "lucide-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
 export default function SeatBooking({ movieTitle, onBookSeats }) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [seatCount, setSeatCount] = useState(1); // State to store the number of seats
+
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const dates = [21, 22, 23, 24, 25, 26, 27];
   const times = ["13:15", "15:15", "18:15", "20:30", "22:30"];
+  const seatCounts = [1, 2, 3, 4, 5, 6]; // Number of seats to choose from
 
-  // Generate a 8x8 grid of seats
+  // Generate an 8x8 grid of seats
   const seats = Array(8)
     .fill()
     .map(() => Array(8).fill(false));
@@ -22,19 +27,25 @@ export default function SeatBooking({ movieTitle, onBookSeats }) {
     setSelectedSeats((prev) =>
       prev.includes(seatId)
         ? prev.filter((id) => id !== seatId)
-        : [...prev, seatId]
+        : [...prev, seatId].slice(0, seatCount) // Limit the selection to the chosen seat count
     );
   };
 
   const handleBooking = () => {
-    if (selectedDate && selectedTime && selectedSeats.length > 0) {
+    if (selectedDate && selectedTime && selectedSeats.length === seatCount) {
       onBookSeats({
         date: selectedDate,
         time: selectedTime,
         seats: selectedSeats,
       });
+      // Use navigate to redirect to the ticket confirmation page
+      navigate("/TicketConfirmation");
     } else {
-      alert("Please select a date, time, and at least one seat.");
+      alert(
+        `Please select a date, time, and exactly ${seatCount} seat${
+          seatCount > 1 ? "s" : ""
+        }.`
+      );
     }
   };
 
@@ -77,6 +88,24 @@ export default function SeatBooking({ movieTitle, onBookSeats }) {
               }`}
             >
               {time}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Seat Count Selection */}
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold mb-2">Select Number of Seats</h3>
+        <div className="flex space-x-2">
+          {seatCounts.map((count) => (
+            <button
+              key={count}
+              onClick={() => setSeatCount(count)}
+              className={`px-4 py-2 rounded ${
+                seatCount === count ? "bg-red-600" : "bg-gray-700"
+              }`}
+            >
+              {count}
             </button>
           ))}
         </div>
@@ -133,3 +162,5 @@ export default function SeatBooking({ movieTitle, onBookSeats }) {
     </div>
   );
 }
+
+

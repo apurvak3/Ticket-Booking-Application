@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();  // Initialize navigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,6 +15,9 @@ const LoginPage = () => {
     } else {
       // Handle sign in logic here
       console.log('Sign in submitted', { email, password, rememberMe });
+      
+      // After successful sign in, navigate to SeatBooking page
+      navigate('/SeatBooking');
     }
   };
 
