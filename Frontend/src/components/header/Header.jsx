@@ -10,42 +10,58 @@ import {
 
 const movies = [
   {
+    title: "RRR",
+    year: "2022",
+    image:
+      "https://m.media-amazon.com/images/M/MV5BOGU1YWRlOTUtMmY3Yi00NzgzLWI3ZDYtM2M4YWQ1NWVmZjk5XkEyXkFqcGdeQXVyMTQ3Mzk2MDg4._V1_.jpg",
+    bg_image: "https://wallpaperaccess.com/full/5664306.jpg",
+  },
+  {
     title: "Beauty And The Beast",
     year: "2014",
-    image: "https://m.media-amazon.com/images/M/MV5BMTUwNjUxMTM4NV5BMl5BanBnXkFtZTgwODExMDQzMTI@._V1_SX300.jpg",
+    image:
+      "https://m.media-amazon.com/images/M/MV5BMTUwNjUxMTM4NV5BMl5BanBnXkFtZTgwODExMDQzMTI@._V1_SX300.jpg",
   },
   {
     title: "Beauty And The Beast",
     year: "2017",
-    image: "https://m.media-amazon.com/images/M/MV5BMTQxNjI2NjU4MV5BMl5BanBnXkFtZTcwNjQ2NjUwNw@@._V1_SX300.jpg",
+    image:
+      "https://m.media-amazon.com/images/M/MV5BMTQxNjI2NjU4MV5BMl5BanBnXkFtZTcwNjQ2NjUwNw@@._V1_SX300.jpg",
   },
   {
     title: "Beauty And The Beast",
     year: "2015",
-    image: "https://m.media-amazon.com/images/M/MV5BNmE1Yjk0NzMtOWM3NC00YTgzLWJlMDItMjJlMGM4ZGE3NjJkXkEyXkFqcGc@._V1_SX300.jpg",
-    bg_image: "https://m.media-amazon.com/images/M/MV5BNTE4NDIwMDQ4OF5BMl5BanBnXkFtZTgwMDcyMDg2MTI@._V1_.jpg",
+    image:
+      "https://m.media-amazon.com/images/M/MV5BNmE1Yjk0NzMtOWM3NC00YTgzLWJlMDItMjJlMGM4ZGE3NjJkXkEyXkFqcGc@._V1_SX300.jpg",
+    bg_image:
+      "https://m.media-amazon.com/images/M/MV5BNTE4NDIwMDQ4OF5BMl5BanBnXkFtZTgwMDcyMDg2MTI@._V1_.jpg",
   },
   {
     title: "RRR",
     year: "2022",
-    image: "https://m.media-amazon.com/images/M/MV5BOGU1YWRlOTUtMmY3Yi00NzgzLWI3ZDYtM2M4YWQ1NWVmZjk5XkEyXkFqcGdeQXVyMTQ3Mzk2MDg4._V1_.jpg",
-    bg_image: "https://wallpaperaccess.com/full/5664306.jpg"
+    image:
+      "https://m.media-amazon.com/images/M/MV5BOGU1YWRlOTUtMmY3Yi00NzgzLWI3ZDYtM2M4YWQ1NWVmZjk5XkEyXkFqcGdeQXVyMTQ3Mzk2MDg4._V1_.jpg",
+    bg_image: "https://wallpaperaccess.com/full/5664306.jpg",
   },
 ];
 
 function Header() {
-  const [backgroundImage, setBackgroundImage] = useState("https://wallpaperaccess.com/full/1679629.jpg");
+  const [backgroundImage, setBackgroundImage] = useState(
+    "https://wallpaperaccess.com/full/1679629.jpg"
+  );
   const [showAll, setShowAll] = useState(false);
 
   const handleMouseEnter = (bg_image) => {
-    setBackgroundImage(bg_image || "https://wallpaperaccess.com/full/1679629.jpg");
+    setBackgroundImage(
+      bg_image || "https://wallpaperaccess.com/full/1679629.jpg"
+    );
   };
 
   const handleMouseLeave = () => {
     setBackgroundImage("https://wallpaperaccess.com/full/1679629.jpg");
   };
 
-  const visibleMovies = showAll ? movies : movies.slice(0, 4);
+  const visibleMovies = showAll ? movies : movies.slice(0, 5);
 
   return (
     <>
@@ -66,12 +82,12 @@ function Header() {
           {showAll ? "See Less" : "See More"}
         </button>
         <div className="absolute bottom-0 left-0 right-0 overflow-x-auto whitespace-nowrap pb-4">
-          <div className="inline-flex space-x-4 px-4">
+          <div className="flex justify-evenly space-x-4 px-4">
             {visibleMovies.map((movie, index) => (
               <div key={index} className="relative w-[12rem] h-[15rem]">
                 <Card
                   shadow={false}
-                  className="w-full h-full transition-all duration-300 ease-in-out transform hover:w-[20rem] hover:h-[25rem] hover:-translate-y-1/2 hover:z-10"
+                  className="w-full h-full transition-all duration-300 ease-in-out transform hover:w-[14rem] hover:h-[16rem] hover:z-10"
                   onMouseEnter={() => handleMouseEnter(movie.bg_image)}
                   onMouseLeave={handleMouseLeave}
                 >
