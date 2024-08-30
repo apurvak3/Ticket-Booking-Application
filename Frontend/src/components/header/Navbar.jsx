@@ -31,7 +31,7 @@ export default function Navbar() {
                 current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
                 'rounded-md px-3 py-2 text-base font-medium',
               )}> LogIN</a>
-            <a href="http://localhost:5173/login" className={classNames(
+            <a href="http://localhost:5173/signup" className={classNames(
                 current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
                 'rounded-md px-3 py-2 text-base font-medium',
               )}> SignUp</a>
