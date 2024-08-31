@@ -1,14 +1,19 @@
-import { Axios } from "axios";
+import axios from "axios"; // Correct import
 
-const ApiClient = Axios.create(
-    {
-        baseURL : "http://localhost:8080"
+const ApiClient = axios.create({
+    baseURL: "http://localhost:8080"
+});
+
+// Fix the typo and properly attach the interceptor
+ApiClient.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token'); // Get token from localStorage
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`; // Set Authorization header
     }
-);
-
-ApiCliconstent.interceptors.request.use((config) => {
-    config.headers.Authorization = localStorage.getItem('token');
     return config;
+}, (error) => {
+    return Promise.reject(error);
 });
 
 export default ApiClient;
+
