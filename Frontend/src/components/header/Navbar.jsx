@@ -6,7 +6,9 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../configs/security/AuthContext";
 
 const current = false;
 
@@ -15,6 +17,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  const {authenticated} = useContext(AuthContext);
   return (
     <Disclosure as="nav" className="bg-transparent ">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -29,16 +32,18 @@ export default function Navbar() {
           </div>
           <div>
             {
-              
+              !authenticated &&
+              <>
+                <Link to="/auth?mode=login" className={classNames(
+                    current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
+                    'rounded-md px-3 py-2 text-base font-medium',
+                  )}> Log In</Link>
+                <Link to="/auth?mode=signup" className={classNames(
+                    current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
+                    'rounded-md px-3 py-2 text-base font-medium',
+                  )}> Sign Up</Link>
+              </>
             }
-            <Link to="/auth?mode=login" className={classNames(
-                current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
-                'rounded-md px-3 py-2 text-base font-medium',
-              )}> Log In</Link>
-            <Link to="/auth?mode=signup" className={classNames(
-                current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
-                'rounded-md px-3 py-2 text-base font-medium',
-              )}> Sign Up</Link>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* Profile dropdown */}

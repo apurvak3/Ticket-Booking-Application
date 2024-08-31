@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';  // Import useNavigate
-import { AuthContext, loginService } from '../../configs/security/AuthContext';
+import { AuthContext } from '../../configs/security/AuthContext';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -12,12 +12,11 @@ const LoginPage = () => {
   const [searchPrams] = useSearchParams();
 
   const login = searchPrams.get('mode') === "login";
-  console.log(searchPrams.get('mode'));
-  const authContext = useContext(AuthContext);
+  const {loginService} = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    if(await authContext.loginService(email, password)) {
+    if(await loginService(email, password)) {
       navigate('/home');
     } else {
       setError("Invalid Credentials.")
