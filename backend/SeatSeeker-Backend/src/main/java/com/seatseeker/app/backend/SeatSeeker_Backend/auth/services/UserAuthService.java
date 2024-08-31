@@ -32,7 +32,8 @@ public class UserAuthService {
 
     public AuthResponse userRegister(RegisterRequest registerRequest) {
         var user = User.builder()
-                .username(registerRequest.getUsername())
+                .name(registerRequest.getName())
+                .user_name(registerRequest.getUser_name())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .phoneNo(registerRequest.getPhoneNo())
@@ -48,7 +49,8 @@ public class UserAuthService {
     }
     public AuthResponse adminRegister(RegisterRequest registerRequest) {
         var user = User.builder()
-                .username(registerRequest.getUsername())
+                .name(registerRequest.getName())
+                .user_name(registerRequest.getUser_name())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .phoneNo(registerRequest.getPhoneNo())
@@ -65,7 +67,8 @@ public class UserAuthService {
 
     public AuthResponse superAdminRegister(RegisterRequest registerRequest) {
         var user = User.builder()
-                .username(registerRequest.getUsername())
+                .name(registerRequest.getName())
+                .user_name(registerRequest.getUser_name())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .phoneNo(registerRequest.getPhoneNo())
@@ -90,10 +93,12 @@ public class UserAuthService {
         var user = userRepo.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found "));
         var accessToken = jwtUtilService.generateToken(user);
         var refreshToken = refreshTokenService.createRefreshToken(loginRequest.getEmail());
+        var name = user.getName();
 
         return AuthResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken.getRefreshToken())
+                .name(name)
                 .build();
     }
 }
