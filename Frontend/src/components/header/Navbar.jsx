@@ -6,6 +6,7 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const current = false;
 
@@ -27,14 +28,14 @@ export default function Navbar() {
             </div>
           </div>
           <div>
-            <a href="http://localhost:5173/login" className={classNames(
+            <Link to="/auth?mode=login" className={classNames(
                 current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
                 'rounded-md px-3 py-2 text-base font-medium',
-              )}> LogIN</a>
-            <a href="http://localhost:5173/signup" className={classNames(
+              )}> Log In</Link>
+            <Link to="/auth?mode=signup" className={classNames(
                 current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
                 'rounded-md px-3 py-2 text-base font-medium',
-              )}> SignUp</a>
+              )}> Sign Up</Link>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* Profile dropdown */}

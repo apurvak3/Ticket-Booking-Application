@@ -1,35 +1,56 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';  // Import useNavigate
+import { loginService } from '../../configs/security/AuthService';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();  // Initialize navigate
+  const [searchPrams] = useSearchParams();
 
-  const handleSubmit = (e) => {
+  const login = searchPrams.get('mode') === "login";
+  console.log(searchPrams.get('mode'));
+
+  const handleLogin = (e) => {
     e.preventDefault();
-    if (password.length < 4 || password.length > 60) {
-      setError('Your password must contain between 4 and 60 characters.');
-    } else {
-      // Handle sign in logic here
-      console.log('Sign in submitted', { email, password, rememberMe });
-      
-      // After successful sign in, navigate to SeatBooking page
-      navigate('/');
-    }
+    loginService(email, password);
   };
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-black bg-opacity-75">
       <div className="bg-black bg-opacity-70 p-8 rounded-lg w-96">
-        <h1 className="text-white text-3xl font-bold mb-6">LogIn</h1>
-        <form onSubmit={handleSubmit}>
+        <h1 className="text-white text-4xl font-bold">
+          {login ? "Welcome Back" : "Sign Up"}
+        </h1>
+        <p className='text-white mb-8'>
+          {login ? "Enter you details to sign in." : "Enter you personal details."}
+        </p>
+        <form onSubmit={handleLogin}>
+          {
+            !login && 
+          
+            <div className="mb-4">
+              <input
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-3 rounded bg-gray-700 text-white"
+              />
+            </div>
+          }
           <div className="mb-4">
             <input
               type="text"
-              placeholder="Email or mobile number"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 rounded bg-gray-700 text-white"
@@ -62,11 +83,25 @@ const LoginPage = () => {
             />
             Remember me
           </label>
-          <a href="#" className="text-gray-400 hover:underline">Forgot password?</a>
+          {
+            login &&
+            <Link to="/" className="text-gray-400 hover:underline">Forgot password?</Link>
+          }
         </div>
         
         <p className="text-gray-400 mt-6">
-          New to Fox? <a href="http://localhost:5173/signup" className="text-white hover:underline">Sign up now</a>.
+          {login ? 
+            <>
+              New to Fox? <Link to="/auth?mode=signup" className="text-white hover:underline">
+                Sign up
+              </Link>.
+            </> :
+            <>
+              Already have an account <Link to="/auth?mode=login" className="text-white hover:underline">
+                Login
+              </Link>.
+            </>
+          }
         </p>
       </div>
     </div>
