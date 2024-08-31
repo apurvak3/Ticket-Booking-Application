@@ -16,7 +16,11 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    loginService(email, password);
+    if(loginService(email, password)) {
+      navigate('/home');
+    } else {
+      setError("Invalid Credentials.")
+    }
   };
 
   const handleSignup = (e) => {

@@ -28,6 +28,9 @@ export default function Navbar() {
             </div>
           </div>
           <div>
+            {
+              
+            }
             <Link to="/auth?mode=login" className={classNames(
                 current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
                 'rounded-md px-3 py-2 text-base font-medium',

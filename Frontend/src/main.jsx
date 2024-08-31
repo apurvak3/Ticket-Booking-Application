@@ -9,7 +9,7 @@ import SeatBooking from "./components/SeatBooking/SeatBooking.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/home",
     element: <App />,
   },
   {

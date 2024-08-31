@@ -1,16 +1,26 @@
 import { loginApi } from "../api/AuthApi";
 
-const API_URL = "http://localhost:8080";
+export default AuthProvider({children}) {
 
-const loginService = async (email, password) => {
-    try {
-        const response  = await loginApi(email, password);
-        console.log(response)
+    const [username, setUsername] = useState(null);
+    const [authenticated, setAuthenticated] = useState(false);
+
+
+
+    const loginService = async (email, password) => {
+        try {
+            const response  = await loginApi(email, password);
+            if(response.status === 200) {
+                setUsername()
+                localStorage.setItem('token', "Bearer " + response.data.accessToken);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            console.log(error);
+        }
         
-    } catch (error) {
-        console.log(error);
     }
-    
-}
 
-export {loginService};
+}
