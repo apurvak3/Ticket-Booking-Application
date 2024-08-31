@@ -1,17 +1,19 @@
+import React from "react";
+import { createContext } from "react";
 import { loginApi } from "../api/AuthApi";
 
-export default AuthProvider({children}) {
+export const AuthContext = createContext();
+
+export default function AuthProvider( {children} ) {
 
     const [username, setUsername] = useState(null);
     const [authenticated, setAuthenticated] = useState(false);
-
-
 
     const loginService = async (email, password) => {
         try {
             const response  = await loginApi(email, password);
             if(response.status === 200) {
-                setUsername()
+                // setUsername(response.data.username);
                 localStorage.setItem('token', "Bearer " + response.data.accessToken);
                 return true;
             } else {
@@ -22,5 +24,11 @@ export default AuthProvider({children}) {
         }
         
     }
+
+    return (
+        <AuthContext.Provider value={{loginService}}>
+            {children}
+        </AuthContext.Provider>
+    );
 
 }
