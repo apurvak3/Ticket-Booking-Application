@@ -17,7 +17,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
-  const {authenticated} = useContext(AuthContext);
+  const {authenticated, name} = useContext(AuthContext);
   return (
     <Disclosure as="nav" className="bg-transparent ">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -32,7 +32,7 @@ export default function Navbar() {
           </div>
           <div>
             {
-              !authenticated &&
+              !authenticated ?
               <>
                 <Link to="/auth?mode=login" className={classNames(
                     current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
@@ -42,7 +42,9 @@ export default function Navbar() {
                     current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-300 hover:text-gray-700',
                     'rounded-md px-3 py-2 text-base font-medium',
                   )}> Sign Up</Link>
-              </>
+              </> : 
+              <p className="text-white text-lg">{name}</p>
+
             }
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
