@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./components/header/LoginPage.jsx";
 import SeatBooking from "./components/SeatBooking/SeatBooking.jsx";
 import AuthProvider from "./configs/security/AuthContext.jsx";
+import AdminPage from "./AdminPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
     path: "/Seatbooking",
     element: <SeatBooking />,
   },
+  {
+    path:"/AdminPage",
+    element:<AdminPage/>
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
