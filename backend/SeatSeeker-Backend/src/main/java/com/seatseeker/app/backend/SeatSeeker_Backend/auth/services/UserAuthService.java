@@ -33,7 +33,6 @@ public class UserAuthService {
     public AuthResponse userRegister(RegisterRequest registerRequest) {
         var user = User.builder()
                 .name(registerRequest.getName())
-                .user_name(registerRequest.getUser_name())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .phoneNo(registerRequest.getPhoneNo())
@@ -42,15 +41,16 @@ public class UserAuthService {
         User savedUser = userRepo.save(user);
         var accessToken = jwtUtilService.generateToken(savedUser);
         var refreshToken = refreshTokenService.createRefreshToken(savedUser.getUsername());
+        var name = user.getName();
         return AuthResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken.getRefreshToken())
+                .name(name)
                 .build();
     }
     public AuthResponse adminRegister(RegisterRequest registerRequest) {
         var user = User.builder()
                 .name(registerRequest.getName())
-                .user_name(registerRequest.getUser_name())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .phoneNo(registerRequest.getPhoneNo())
@@ -68,7 +68,6 @@ public class UserAuthService {
     public AuthResponse superAdminRegister(RegisterRequest registerRequest) {
         var user = User.builder()
                 .name(registerRequest.getName())
-                .user_name(registerRequest.getUser_name())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
                 .phoneNo(registerRequest.getPhoneNo())

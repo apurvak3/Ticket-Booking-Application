@@ -27,8 +27,8 @@ public class UserServiceImp implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto, Integer userId) {
         User user = this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-        user.setUser_name(userDto.getUser_name());
         user.setEmail(userDto.getEmail());
+        user.setName(userDto.getName());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setPhoneNo(user.getPhoneNo());
         user.setOrderId(user.getOrderId());
