@@ -39,7 +39,7 @@ public class Movie {
     private Date startDate;
     @Column(nullable = false)
     private Date endDate;
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "movie_theatre",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "theatre_id")

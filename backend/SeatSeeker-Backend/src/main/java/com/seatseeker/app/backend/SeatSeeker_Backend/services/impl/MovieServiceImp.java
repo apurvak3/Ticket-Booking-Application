@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieServiceImp implements MovieService {
@@ -57,6 +58,15 @@ public class MovieServiceImp implements MovieService {
     @Override
     public MovieDto getMovieById(Integer movieId) {
         Movie movie = movieRepo.findById(movieId).orElseThrow(() -> new RuntimeException("Movie with id " + movieId + " not found"));
-        return modelMapper.map(movie, MovieDto.class);
+
+        // Extract theatre IDs and set them in MovieDto
+        List<Integer> theatreIds = movie.getTheatres()
+                .stream()
+                .map(Theatre::getTheatreId)
+                .collect(Collectors.toList());
+        MovieDto movieDto = modelMapper.map(movie, MovieDto.class);
+
+        movieDto.setTheatreIDs(theatreIds);
+        return movieDto;
     }
 }
