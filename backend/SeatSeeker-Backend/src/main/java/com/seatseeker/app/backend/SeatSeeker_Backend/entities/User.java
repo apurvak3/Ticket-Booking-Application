@@ -29,7 +29,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
     @Column(nullable = false)
-    private String username;
+    private String name;
+    @Column(nullable = false)
+    private String user_name;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
@@ -48,6 +50,7 @@ public class User implements UserDetails {
     private RefreshToken refreshToken;
     @OneToOne(mappedBy = "user")
     private ForgotPassword forgotPassword;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(roles.name()));
