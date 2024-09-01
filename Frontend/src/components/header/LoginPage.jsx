@@ -6,13 +6,14 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [phoneNo, setPhoneNo] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();  // Initialize navigate
   const [searchPrams] = useSearchParams();
 
   const login = searchPrams.get('mode') === "login";
-  const {loginService} = useContext(AuthContext);
+  const {loginService, signupService} = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -23,9 +24,13 @@ const LoginPage = () => {
     }
   };
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    
+    if(await signupService(email, password, name, phoneNo)) {
+      navigate('/home');
+    } else {
+      setError("already user exist with same email.")
+    }
   }
 
   return (
@@ -37,19 +42,29 @@ const LoginPage = () => {
         <p className='text-white mb-8'>
           {login ? "Enter you details to sign in." : "Enter you personal details."}
         </p>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={login ? handleLogin : handleSignup}>
           {
             !login && 
-          
-            <div className="mb-4">
-              <input
-                type="text"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full p-3 rounded bg-gray-700 text-white"
-              />
-            </div>
+            <>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full p-3 rounded bg-gray-700 text-white"
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="text"
+                  placeholder="Phone No."
+                  value={phoneNo}
+                  onChange={(e) => setPhoneNo(e.target.value)}
+                  className="w-full p-3 rounded bg-gray-700 text-white"
+                />
+              </div>
+            </>
           }
           <div className="mb-4">
             <input
@@ -74,7 +89,7 @@ const LoginPage = () => {
             type="submit"
             className="w-full bg-red-600 text-white p-3 rounded font-bold"
           >
-            Sign In
+            {login ? "Sign In" : "Sign Up"}
           </button>
         </form>
         <div className="flex items-center justify-between mt-4">
