@@ -58,15 +58,6 @@ public class MovieServiceImp implements MovieService {
     @Override
     public MovieDto getMovieById(Integer movieId) {
         Movie movie = movieRepo.findById(movieId).orElseThrow(() -> new RuntimeException("Movie with id " + movieId + " not found"));
-
-        // Extract theatre IDs and set them in MovieDto
-        List<Integer> theatreIds = movie.getTheatres()
-                .stream()
-                .map(Theatre::getTheatreId)
-                .collect(Collectors.toList());
-        MovieDto movieDto = modelMapper.map(movie, MovieDto.class);
-
-        movieDto.setTheatreIDs(theatreIds);
-        return movieDto;
+        return this.modelMapper.map(movie, MovieDto.class);
     }
 }
