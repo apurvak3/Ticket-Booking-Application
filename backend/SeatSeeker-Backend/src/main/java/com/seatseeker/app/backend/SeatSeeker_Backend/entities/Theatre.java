@@ -1,36 +1,23 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
-@Table(name = "theatre_table")
+@Table(name = "theatres")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Theatre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer theatreId;
-    @Column(nullable = false)
+    private Integer id;
     private String name;
-    @Column(nullable = false)
-    private String city;
-    @Column(nullable = false)
-    private double ticketPrice;
-    @Column(nullable = false)
-    @OneToMany(mappedBy = "theatre", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Seat> seats;
-    @ManyToMany(mappedBy = "theatres", fetch = FetchType.EAGER  )
-    private Set<Movie> movies = new HashSet<>();
+    private String location;
+    private Long ticketPrice;
 }

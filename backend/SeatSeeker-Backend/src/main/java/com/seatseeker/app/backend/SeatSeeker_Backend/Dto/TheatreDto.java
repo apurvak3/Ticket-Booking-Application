@@ -1,17 +1,18 @@
 package com.seatseeker.app.backend.SeatSeeker_Backend.Dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
-import java.util.Set;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TheatreDto {
 
-    private Integer theatreId;
+    private Integer id;
     private String name;
-    private String city;
-    private double ticketPrice;
-    private List<SeatDto> seats;
-    private Set<MovieDto> movies;
+    private String location;
+    private Long ticketPrice;
 }

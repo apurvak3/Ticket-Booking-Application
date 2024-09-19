@@ -2,50 +2,28 @@ package com.seatseeker.app.backend.SeatSeeker_Backend.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Duration;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
+@Table(name = "movies")
 @Data
-@Table(name = "movie_table")
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer movieId;
-    @Column(nullable = false)
+    private Integer id;
     private String title;
-    @Column(nullable = false)
-    private List<String> language;
-    @Column(nullable = false)
+    @ElementCollection
+    private List<String> languages;
     private String genre;
-    @Column(nullable = false)
+    private String duration;
     private String director;
-    @Column(nullable = false)
+    private String trailer;
     private String description;
-    @Column(nullable = false)
-    private Duration duration;
-    @Column(nullable = false)
-    private Date startDate;
-    @Column(nullable = false)
-    private Date endDate;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "movie_theatre",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "theatre_id")
-    )
-    private Set<Theatre> theatres = new HashSet<>();
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ShowTime> showTimes;
-
+    private String startDate;
+    private String endDate;
 }
